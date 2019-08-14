@@ -59,7 +59,6 @@ public class MainActivity extends AppCompatActivity {
             mTvText.setText(str);
         });
 
-
         findViewById(R.id.btn_play).setOnClickListener(v -> {
             if (TextUtils.isEmpty(mAudioPath) || !new File(mAudioPath).exists()) {
                 Toast.makeText(MainActivity.this, "文件不存在", Toast.LENGTH_SHORT).show();
@@ -75,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onAttachedToWindow() {
         super.onAttachedToWindow();
-        requestAudioPermission();
+//        requestAudioPermission();
     }
 
 
@@ -83,15 +82,15 @@ public class MainActivity extends AppCompatActivity {
      * 检测权限
      */
     private void requestAudioPermission() {
-        rxPermissions.request(Manifest.permission.RECORD_AUDIO,
-                Manifest.permission.READ_EXTERNAL_STORAGE,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                .subscribe(granted -> {
-                    if (!granted) {
-                        Toast.makeText(MainActivity.this, "不同意就退出", Toast.LENGTH_LONG).show();
-                        finish();
-                    }
-                });
+//        rxPermissions.request(Manifest.permission.RECORD_AUDIO,
+//                Manifest.permission.READ_EXTERNAL_STORAGE,
+//                Manifest.permission.WRITE_EXTERNAL_STORAGE)
+//                .subscribe(granted -> {
+//                    if (!granted) {
+//                        Toast.makeText(MainActivity.this, "不同意就退出", Toast.LENGTH_LONG).show();
+//                        finish();
+//                    }
+//                });
     }
 
 }

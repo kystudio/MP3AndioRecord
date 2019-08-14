@@ -94,7 +94,7 @@ public class AudioPlayer implements MediaPlayer.OnBufferingUpdateListener, Media
                 }
                 Message msg = new Message();
                 msg.obj = mMediaPlayer.getCurrentPosition();
-                msg.what = 1;
+                msg.what = AudioPlayer.HANDLER_CUR_TIME;
                 mRemoteHandler.sendMessageAtTime(msg, 0);
             }
         };
@@ -134,7 +134,7 @@ public class AudioPlayer implements MediaPlayer.OnBufferingUpdateListener, Media
         if (mRemoteHandler != null) {
             Message msg = new Message();
             msg.obj = mMediaPlayer.getDuration();
-            msg.what = 2;
+            msg.what = AudioPlayer.HANDLER_PREPARED;
             mRemoteHandler.sendMessageAtTime(msg, 0);
         }
         mp.start();
@@ -145,7 +145,7 @@ public class AudioPlayer implements MediaPlayer.OnBufferingUpdateListener, Media
     public void onCompletion(MediaPlayer mp) {
         if (mRemoteHandler != null) {
             Message msg = new Message();
-            msg.what = 0;
+            msg.what = AudioPlayer.HANDLER_COMPLETE;
             mRemoteHandler.sendMessageAtTime(msg, 0);
         }
     }
@@ -163,7 +163,7 @@ public class AudioPlayer implements MediaPlayer.OnBufferingUpdateListener, Media
     public boolean onError(MediaPlayer mp, int what, int extra) {
         if (mRemoteHandler != null) {
             Message msg = new Message();
-            msg.what = -28;
+            msg.what = AudioPlayer.HANDLER_ERROR;
             mRemoteHandler.sendMessageAtTime(msg, 0);
         }
         return false;

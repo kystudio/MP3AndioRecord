@@ -127,6 +127,7 @@ public class MP3RecordView extends RelativeLayout implements View.OnTouchListene
                 ContextCompat.getDrawable(mContext, R.drawable.icon_recording_7)};
     }
 
+    @SuppressLint("HandlerLeak")
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
