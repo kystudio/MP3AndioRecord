@@ -59,8 +59,7 @@
         android:paddingTop="3dp"
         android:paddingRight="5dp"
         android:paddingBottom="3dp"
-        android:text="手指上滑，取消发送"
+        android:text="@string/up_for_cancel"
         android:textColor="#ffffff"
         android:textSize="14sp" />
-
 </RelativeLayout>

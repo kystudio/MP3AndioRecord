@@ -1,4 +1,4 @@
-package com.view;
+package com.czt.view;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -18,8 +18,8 @@ import android.widget.Toast;
 
 import com.czt.mp3recorder.MP3Recorder;
 import com.zhuyong.mp3record.R;
-import com.utils.FileUtils;
-import com.utils.LogUtils;
+import com.czt.utils.FileUtils;
+import com.czt.utils.LogUtils;
 
 import java.io.File;
 import java.io.IOException;

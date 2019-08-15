@@ -1,4 +1,4 @@
-package com.activity;
+package com.czt.activity;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -12,8 +12,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.AudioPlayer;
-import com.utils.LogUtils;
-import com.utils.ScreenUtils;
+import com.czt.utils.LogUtils;
+import com.czt.utils.ScreenUtils;
 import com.zhuyong.mp3record.R;
 
 import java.text.SimpleDateFormat;

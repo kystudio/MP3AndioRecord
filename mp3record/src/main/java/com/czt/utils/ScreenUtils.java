@@ -1,4 +1,4 @@
-package com.utils;
+package com.czt.utils;
 
 import android.app.Activity;
 import android.content.Context;

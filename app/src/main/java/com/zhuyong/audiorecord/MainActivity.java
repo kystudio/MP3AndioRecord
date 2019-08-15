@@ -1,6 +1,5 @@
 package com.zhuyong.audiorecord;
 
-import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -10,9 +9,9 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.activity.AudioPlayActivity;
-import com.tbruyelle.rxpermissions2.RxPermissions;
-import com.view.MP3RecordView;
+import com.czt.activity.AudioPlayActivity;
+import com.czt.view.MP3RecordButton;
+import com.czt.view.MP3RecordView;
 
 import java.io.File;
 
@@ -29,8 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
     private TextView mTvText;
     private Button mBtnRecord;
-
-    private final RxPermissions rxPermissions = new RxPermissions(this);
+    private MP3RecordButton mMP3Record;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,18 +39,19 @@ public class MainActivity extends AppCompatActivity {
 
     private void initView() {
         mTvText = findViewById(R.id.tv_text);
-        mViewRecord = findViewById(R.id.view_record);
-        mBtnRecord = findViewById(R.id.btn_rwcord);
+//        mViewRecord = findViewById(R.id.view_record);
+//        mBtnRecord = findViewById(R.id.btn_rwcord);
+        mMP3Record = findViewById(R.id.btn_record);
 
         /**
          * 设置可触控View
          */
-        mViewRecord.setRootView(mBtnRecord);
+//        mViewRecord.setRootView(mBtnRecord);
 
         /**
          * 设置回调
          */
-        mViewRecord.setOnRecordCompleteListener((filePath, duration) -> {
+        mMP3Record.setOnRecordCompleteListener((filePath, duration) -> {
             mAudioPath = filePath;
             String str = "文件地址：" + filePath + "\n\n录音时长:" + duration / 1000 + "秒";
             Log.i("MainActivity", str);
@@ -70,27 +69,4 @@ public class MainActivity extends AppCompatActivity {
 
         });
     }
-
-    @Override
-    public void onAttachedToWindow() {
-        super.onAttachedToWindow();
-//        requestAudioPermission();
-    }
-
-
-    /**
-     * 检测权限
-     */
-    private void requestAudioPermission() {
-//        rxPermissions.request(Manifest.permission.RECORD_AUDIO,
-//                Manifest.permission.READ_EXTERNAL_STORAGE,
-//                Manifest.permission.WRITE_EXTERNAL_STORAGE)
-//                .subscribe(granted -> {
-//                    if (!granted) {
-//                        Toast.makeText(MainActivity.this, "不同意就退出", Toast.LENGTH_LONG).show();
-//                        finish();
-//                    }
-//                });
-    }
-
 }
