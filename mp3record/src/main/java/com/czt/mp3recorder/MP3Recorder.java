@@ -53,6 +53,7 @@ public class MP3Recorder extends BaseRecorder {
     public static final int MESSAGE_ERROR = 0x12;
     public static final int MESSAGE_ERROR_PERMISSION = 0x13;
     public static final int MESSAGE_FINISH = 0x14;
+    public static final int MESSAGE_TOO_SHORT = 0x15;
 
     private AudioRecord mAudioRecord = null;
     private DataEncodeThread mEncodeThread;
@@ -76,12 +77,12 @@ public class MP3Recorder extends BaseRecorder {
         mRecordFile = recordFile;
     }
 
-    public File getmRecordFile() {
+    public File getRecordFile() {
         return mRecordFile;
     }
 
-    public void setmRecordFile(File mRecordFile) {
-        this.mRecordFile = mRecordFile;
+    public void setRecordFile(File recordFile) {
+        this.mRecordFile = recordFile;
     }
 
     /**

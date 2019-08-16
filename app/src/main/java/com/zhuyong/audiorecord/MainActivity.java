@@ -39,14 +39,20 @@ public class MainActivity extends AppCompatActivity {
 
     private void initView() {
         mTvText = findViewById(R.id.tv_text);
-//        mViewRecord = findViewById(R.id.view_record);
-//        mBtnRecord = findViewById(R.id.btn_rwcord);
+        mViewRecord = findViewById(R.id.view_record);
+        mBtnRecord = findViewById(R.id.btn_rwcord);
         mMP3Record = findViewById(R.id.btn_record);
 
         /**
          * 设置可触控View
          */
-//        mViewRecord.setRootView(mBtnRecord);
+        mViewRecord.setRootView(mBtnRecord);
+        mViewRecord.setOnRecordCompleteListener((filePath, duration) -> {
+            mAudioPath = filePath;
+            String str = "文件地址1：" + filePath + "\n\n录音时长:" + duration / 1000 + "秒";
+            Log.i("MainActivity", str);
+            mTvText.setText(str);
+        });
 
         /**
          * 设置回调

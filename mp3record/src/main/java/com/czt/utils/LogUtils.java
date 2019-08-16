@@ -12,7 +12,7 @@ public class LogUtils {
     /**
      * 程序是否在调试阶段
      */
-    public static boolean IS_DEBUGING = false;
+    public static boolean IS_DEBUGING = true;
 
     // 调试信息：debug
     public static void d(String TAG, String msg) {

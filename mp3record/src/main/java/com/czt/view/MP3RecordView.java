@@ -299,7 +299,7 @@ public class MP3RecordView extends RelativeLayout implements View.OnTouchListene
             mRecorder = new MP3Recorder(new File(mFilePath));
             mRecorder.setHandler(mHandler);
         }
-        mRecorder.setmRecordFile(new File(mFilePath));
+        mRecorder.setRecordFile(new File(mFilePath));
 
         try {
             mRecorder.start();

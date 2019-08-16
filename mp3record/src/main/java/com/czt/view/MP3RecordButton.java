@@ -7,7 +7,6 @@ import android.os.Message;
 import android.support.v7.widget.AppCompatImageButton;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
-import android.view.View;
 import android.widget.Toast;
 
 import com.czt.mp3recorder.MP3Recorder;
@@ -17,33 +16,23 @@ import com.czt.utils.LogUtils;
 import java.io.File;
 import java.io.IOException;
 
-public class MP3RecordButton extends AppCompatImageButton implements View.OnTouchListener {
+public class MP3RecordButton extends AppCompatImageButton {
     private static final String TAG = "MP3RecordView";
 
-    /**
-     * 录音类
-     */
+    // 录音类
     private MP3Recorder mRecorder;
-    //录音对话框
+    // 录音对话框
     private DialogManager mDialogManager;
-    /**
-     * 录音文件地址
-     */
+    // 录音文件地址
     private String mFilePath = "";
-    /**
-     * 录音时间标记参数
-     */
+    // 录音时间标记参数
     private long mDuration;
 
     private boolean mIsOnTouch = false;
     private boolean mIsRecording = false;
-    /**
-     * 点击时间间隔控制参数，防止快速点击造成录音异常
-     */
+    // 点击时间间隔控制参数，防止快速点击造成录音异常
     private long time;
-    /**
-     * 录音结果回调接口
-     */
+    // 录音结果回调接口
     private OnRecordCompleteListener onRecordCompleteListener;
 
     @Override
@@ -63,7 +52,7 @@ public class MP3RecordButton extends AppCompatImageButton implements View.OnTouc
 
     //手指滑动监听
     @Override
-    public boolean onTouch(View v, MotionEvent event) {
+    public boolean onTouchEvent(MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN && System.currentTimeMillis() - time < 1000) {
             LogUtils.i(TAG, "时间间隔小于1秒，不执行以下代码");
             return false;
@@ -103,23 +92,22 @@ public class MP3RecordButton extends AppCompatImageButton implements View.OnTouc
                         long length = resolveStopRecord();
                         mIsRecording = false;
                         if (length > 1000) {
-                            this.setVisibility(INVISIBLE);
                             Message message = new Message();
                             message.what = MP3Recorder.MESSAGE_FINISH;
                             message.arg1 = (int) length;
                             mHandler.sendMessage(message);
+                            mDialogManager.dismissDialog();
                         } else {
                             mDialogManager.tooShort();
                             mHandler.postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
-                                    setVisibility(INVISIBLE);
+                                    mDialogManager.dismissDialog();
                                 }
                             }, 1000);
                         }
                     }
                 }
-                mDialogManager.dismissDialog();
                 return true;
             default:
                 LogUtils.i(TAG, "执行到了其他的:" + event.getAction());
@@ -178,12 +166,11 @@ public class MP3RecordButton extends AppCompatImageButton implements View.OnTouc
             mRecorder = new MP3Recorder(new File(mFilePath));
             mRecorder.setHandler(mHandler);
         }
-        mRecorder.setmRecordFile(new File(mFilePath));
+        mRecorder.setRecordFile(new File(mFilePath));
 
         try {
             mRecorder.start();
             mDuration = System.currentTimeMillis();
-            this.setVisibility(VISIBLE);
         } catch (IOException e) {
             e.printStackTrace();
             LogUtils.i(TAG, "录音出现异常：" + e.toString());
@@ -213,7 +200,7 @@ public class MP3RecordButton extends AppCompatImageButton implements View.OnTouc
      * 录音异常
      */
     private void resolveError() {
-        this.setVisibility(View.INVISIBLE);
+        mDialogManager.dismissDialog();
         FileUtils.deleteFile(mFilePath);
         mIsOnTouch = false;
         mFilePath = "";
